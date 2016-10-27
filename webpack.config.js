@@ -1,22 +1,23 @@
 const webpack = require('webpack');
 const package = require('./package.json');
+const path = require("path");
 
 module.exports = {
-  entry: './src/app.js',
+  entry: {
+    app: './src/app.js'
+  },
   output: {
-    path: './bin',
-    filename: 'app.js',
+    filename: '[name].build.js',
 
     // export itself to a global var
     libraryTarget: "umd",
     // name of the global var: "Foo"
     library: package.name || 'App',
     pathinfo: true,
-
+    path: path.resolve(__dirname, "build"),
+    publicPath: "/assets/",
   },
   externals: {
-      // require("jquery") is external and available
-      //  on the global var jQuery
       "jquery": "jQuery"
   },
   module: {
@@ -35,6 +36,7 @@ module.exports = {
     ]
   },
 
+  target: 'web',
   // plugins: [
   //   new webpack.optimize.UglifyJsPlugin({
   //     compress: {
@@ -45,4 +47,17 @@ module.exports = {
   //     },
   //   }),
   // ]
+
+  devtool: "source-map",
+
+  devServer: {
+    contentBase: "build/",
+  },
+
+  resolve: {
+    alias: {
+      widgets: './widgets',
+      pages: './pages',
+    }
+  }
 };
