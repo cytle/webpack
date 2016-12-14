@@ -28,9 +28,6 @@ module.exports = {
         loader: 'babel-loader'
       },
 
-      { test: /\.jade$/, loader: 'jade' },
-      // => 'jade' loader is used for '.jade' files
-
       { test: /\.css$/, loaders: ['style', 'css', 'less'] },
       // => 'style' and 'css' loader is used for '.css' files
     ]
